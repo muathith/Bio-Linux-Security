@@ -24,13 +24,23 @@ const insuranceLinks = [
   },
   {
     icon: Car,
-    title: "تأمين السيارات التكميلي",
+    title: "تأمين ضد الغير",
     description: "تغطية ضد الغير بأفضل الأسعار المتاحة",
     href: "#",
     bgLight: "bg-sky-50",
     textColor: "text-sky-600",
     badge: "اقتصادي",
     badgeColor: "bg-sky-100 text-sky-700",
+  },
+  {
+    icon: Star,
+    title: "مقارنة الأسعار",
+    description: "قارن أسعار جميع شركات التأمين في مكان واحد",
+    href: "#",
+    bgLight: "bg-emerald-50",
+    textColor: "text-emerald-600",
+    badge: "مجاناً",
+    badgeColor: "bg-emerald-100 text-emerald-700",
   },
 ];
 
