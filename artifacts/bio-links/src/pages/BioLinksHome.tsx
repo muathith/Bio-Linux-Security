@@ -6,17 +6,85 @@ import {
   ClipboardList,
   Phone,
   Mail,
-  ExternalLink,
   ChevronLeft,
+  Car,
+  HeartPulse,
+  Home,
+  Plane,
+  Briefcase,
+  Users,
+  Star,
 } from "lucide-react";
 
-const links = [
+const insuranceLinks = [
+  {
+    icon: Car,
+    title: "تأمين السيارات",
+    description: "قارن أفضل عروض تأمين المركبات الشامل والتكميلي",
+    href: "#",
+    bgLight: "bg-blue-50",
+    textColor: "text-blue-600",
+    badge: "الأكثر طلباً",
+    badgeColor: "bg-blue-100 text-blue-700",
+  },
+  {
+    icon: HeartPulse,
+    title: "التأمين الصحي",
+    description: "خطط طبية شاملة للأفراد والعائلات والمجموعات",
+    href: "#",
+    bgLight: "bg-rose-50",
+    textColor: "text-rose-600",
+    badge: "عروض حصرية",
+    badgeColor: "bg-rose-100 text-rose-700",
+  },
+  {
+    icon: Home,
+    title: "تأمين المنازل",
+    description: "حماية متكاملة لمنزلك ومحتوياته من المخاطر",
+    href: "#",
+    bgLight: "bg-emerald-50",
+    textColor: "text-emerald-600",
+    badge: null,
+    badgeColor: "",
+  },
+  {
+    icon: Plane,
+    title: "تأمين السفر",
+    description: "سافر بأمان مع تغطية طبية وضد الإلغاء والفقدان",
+    href: "#",
+    bgLight: "bg-sky-50",
+    textColor: "text-sky-600",
+    badge: "جديد",
+    badgeColor: "bg-sky-100 text-sky-700",
+  },
+  {
+    icon: Briefcase,
+    title: "تأمين الأعمال",
+    description: "حلول تأمينية متكاملة للشركات والمنشآت التجارية",
+    href: "#",
+    bgLight: "bg-violet-50",
+    textColor: "text-violet-600",
+    badge: null,
+    badgeColor: "",
+  },
+  {
+    icon: Users,
+    title: "التأمين على الحياة",
+    description: "خطط حماية ومدخرات لمستقبل أسرتك",
+    href: "#",
+    bgLight: "bg-amber-50",
+    textColor: "text-amber-600",
+    badge: null,
+    badgeColor: "",
+  },
+];
+
+const policyLinks = [
   {
     icon: Shield,
     title: "سياسة الخصوصية",
     description: "كيف نجمع ونستخدم ونحمي بياناتك الشخصية",
     href: "/privacy-policy",
-    color: "from-blue-500 to-blue-600",
     bgLight: "bg-blue-50",
     textColor: "text-blue-600",
     internal: true,
@@ -26,7 +94,6 @@ const links = [
     title: "سياسة ملفات تعريف الارتباط",
     description: "معلومات حول الكوكيز وكيفية استخدامها في موقعنا",
     href: "/cookies-policy",
-    color: "from-amber-500 to-orange-500",
     bgLight: "bg-amber-50",
     textColor: "text-amber-600",
     internal: true,
@@ -36,7 +103,6 @@ const links = [
     title: "الشروط والأحكام",
     description: "شروط استخدام خدماتنا التأمينية وأحكامها",
     href: "/terms-conditions",
-    color: "from-purple-500 to-purple-600",
     bgLight: "bg-purple-50",
     textColor: "text-purple-600",
     internal: true,
@@ -46,7 +112,6 @@ const links = [
     title: "وثيقة التأمين النموذجية",
     description: "تحميل نموذج وثيقة التأمين الموحدة",
     href: "#",
-    color: "from-emerald-500 to-green-600",
     bgLight: "bg-emerald-50",
     textColor: "text-emerald-600",
     internal: false,
@@ -68,63 +133,95 @@ const contactLinks = [
   },
 ];
 
+function LinkCard({
+  link,
+}: {
+  link: (typeof policyLinks)[0] & { badge?: string | null; badgeColor?: string };
+}) {
+  const Icon = link.icon;
+  return (
+    <div className="flex items-center gap-4 p-4 bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:border-primary/30 group cursor-pointer">
+      <div className={`flex-shrink-0 w-11 h-11 rounded-xl ${link.bgLight} flex items-center justify-center`}>
+        <Icon className={`w-5 h-5 ${link.textColor}`} />
+      </div>
+      <div className="flex-1 text-right">
+        <div className="flex items-center justify-end gap-2 mb-0.5">
+          {"badge" in link && link.badge && (
+            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${link.badgeColor}`}>
+              {link.badge}
+            </span>
+          )}
+          <p className="font-semibold text-foreground text-sm">{link.title}</p>
+        </div>
+        <p className="text-muted-foreground text-xs">{link.description}</p>
+      </div>
+      <ChevronLeft className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+    </div>
+  );
+}
+
 export default function BioLinksHome() {
   return (
     <div className="min-h-screen bg-background" dir="rtl">
       <div className="max-w-lg mx-auto px-4 py-10">
+
         {/* Header / Profile */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg mb-4">
-            <Shield className="w-10 h-10 text-white" />
+            <Star className="w-10 h-10 text-white fill-white" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground mb-1">شركة التأمين</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-1">
+            مقارنة أفضل أسعار وعروض التأمين
+          </h1>
           <p className="text-muted-foreground text-sm">
-            نحمي ما يهمك — تأمين موثوق وشفاف
+            وفّر وقتك وأموالك — قارن واختر الأنسب لك
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span className="text-xs text-emerald-600 font-medium">مرخصة من هيئة التأمين</span>
+            <span className="text-xs text-emerald-600 font-medium">معتمد من هيئة التأمين</span>
           </div>
         </div>
 
-        {/* Main Links */}
-        <div className="space-y-3 mb-8">
-          {links.map((link) => {
-            const Icon = link.icon;
-            const content = (
-              <div className="flex items-center gap-4 p-4 bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition-all duration-200 hover:border-primary/30 group cursor-pointer">
-                <div
-                  className={`flex-shrink-0 w-11 h-11 rounded-xl ${link.bgLight} flex items-center justify-center`}
-                >
-                  <Icon className={`w-5 h-5 ${link.textColor}`} />
-                </div>
-                <div className="flex-1 text-right">
-                  <p className="font-semibold text-foreground text-sm">{link.title}</p>
-                  <p className="text-muted-foreground text-xs mt-0.5">{link.description}</p>
-                </div>
-                <ChevronLeft className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-              </div>
-            );
+        {/* Insurance Links Section */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="flex-1 h-px bg-border"></div>
+          <span className="text-xs font-semibold text-foreground bg-background px-2">أنواع التأمين</span>
+          <div className="flex-1 h-px bg-border"></div>
+        </div>
 
+        <div className="space-y-3 mb-8">
+          {insuranceLinks.map((link) => (
+            <a key={link.title} href={link.href} target="_blank" rel="noopener noreferrer">
+              <LinkCard link={link} />
+            </a>
+          ))}
+        </div>
+
+        {/* Policy Links Section */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="flex-1 h-px bg-border"></div>
+          <span className="text-xs font-semibold text-foreground bg-background px-2">السياسات والوثائق</span>
+          <div className="flex-1 h-px bg-border"></div>
+        </div>
+
+        <div className="space-y-3 mb-8">
+          {policyLinks.map((link) => {
+            const card = <LinkCard key={link.title} link={link} />;
             if (link.internal) {
-              return (
-                <Link key={link.title} href={link.href}>
-                  {content}
-                </Link>
-              );
+              return <Link key={link.title} href={link.href}>{card}</Link>;
             }
             return (
               <a key={link.title} href={link.href} target="_blank" rel="noopener noreferrer">
-                {content}
+                {card}
               </a>
             );
           })}
         </div>
 
         {/* Divider */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-4">
           <div className="flex-1 h-px bg-border"></div>
-          <span className="text-xs text-muted-foreground">تواصل معنا</span>
+          <span className="text-xs font-semibold text-foreground bg-background px-2">تواصل معنا</span>
           <div className="flex-1 h-px bg-border"></div>
         </div>
 
@@ -153,17 +250,17 @@ export default function BioLinksHome() {
         {/* Footer */}
         <div className="text-center">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} شركة التأمين — جميع الحقوق محفوظة
+            © {new Date().getFullYear()} مقارنة التأمين — جميع الحقوق محفوظة
           </p>
           <div className="flex items-center justify-center gap-4 mt-3">
             <Link href="/privacy-policy" className="text-xs text-primary hover:underline">
               سياسة الخصوصية
             </Link>
-            <span className="text-border">|</span>
+            <span className="text-muted-foreground">|</span>
             <Link href="/cookies-policy" className="text-xs text-primary hover:underline">
               الكوكيز
             </Link>
-            <span className="text-border">|</span>
+            <span className="text-muted-foreground">|</span>
             <Link href="/terms-conditions" className="text-xs text-primary hover:underline">
               الشروط والأحكام
             </Link>
