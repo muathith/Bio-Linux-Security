@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "صفحة البيو لينكس - التأمين"
+version = "1.0.0"
+id = "artifacts/bio-links"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19819
+
+[services.development]
+run = "pnpm --filter @workspace/bio-links run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/bio-links", "run", "build" ]
+publicDir = "artifacts/bio-links/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19819"
+BASE_PATH = "/"
