@@ -163,7 +163,7 @@ function LinkCard({
 export default function BioLinksHome() {
   return (
     <div className="min-h-screen bg-background" dir="rtl">
-      <div className="max-w-lg mx-auto px-4 py-10">
+      <div className="max-w-md mx-auto px-6 py-10">
 
         {/* Header / Profile */}
         <div className="text-center mb-8">
